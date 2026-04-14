@@ -15,6 +15,22 @@
         .page { display: none; flex-direction: column; flex: 1; width: 100%; animation: fadeIn 0.3s ease-in-out; }
         .page.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* HIỆU ỨNG LOGO THỞ (PULSE) */
+        @keyframes logoPulse {
+            0% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.6)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 15px rgba(79,140,255,0.9)); transform: scale(1.05); }
+            100% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.6)); transform: scale(1); }
+        }
+        .animate-eios { animation: logoPulse 3s infinite ease-in-out; }
+
+        /* HIỆU ỨNG CHẤM AI XOAY */
+        @keyframes rotateAI {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .ai-core { transform-origin: center; animation: rotateAI 10s linear infinite; }
+        
         .dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
         @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
     </style>
@@ -24,68 +40,72 @@
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden" onclick="toggleMenu()"></div>
 
     <aside id="sidebar" class="fixed inset-y-0 left-0 w-[80%] max-w-[300px] bg-[#1c1c1c] border-r border-panel -translate-x-full z-50 flex flex-col overflow-hidden">
-        
         <div class="p-5 flex items-center border-b border-panel gap-3 bg-panel/30">
-            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(79,140,255,0.5)]">
-                <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
+            <div class="h-10 w-10 flex-shrink-0 animate-eios">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <defs>
+                        <linearGradient id="gradE" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4F8CFF;" />
+                            <stop offset="100%" style="stop-color:#9D4FFF;" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="20" y="25" width="55" height="10" rx="4" fill="url(#gradE)" />
+                    <rect x="20" y="45" width="55" height="10" rx="4" fill="url(#gradE)" />
+                    <rect x="20" y="65" width="55" height="10" rx="4" fill="url(#gradE)" />
+                    <g class="ai-core">
+                        <circle cx="75" cy="50" r="10" fill="white" fill-opacity="0.1" stroke="white" stroke-width="1" stroke-dasharray="4 2" />
+                        <circle cx="75" cy="50" r="5" fill="white" class="animate-pulse" />
+                    </g>
+                </svg>
             </div>
             <div class="flex flex-col">
                 <span class="font-bold text-lg text-white leading-tight">Eios IDE</span>
-                <span class="text-[10px] text-gray-500 mt-0.5 uppercase tracking-tighter">Official AI Engine</span>
+                <span class="text-[10px] text-blue-400 mt-0.5 uppercase tracking-widest font-bold">AI Engine Active</span>
             </div>
         </div>
 
-        <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 hover:bg-panel rounded-xl transition-all"><i data-lucide="home" class="w-5 h-5 text-blue-400"></i> Home</button>
-            <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 hover:bg-panel rounded-xl transition-all text-gray-400"><i data-lucide="folder-git-2" class="w-5 h-5"></i> Projects</button>
-            <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 hover:bg-panel rounded-xl transition-all text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
-            <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 hover:bg-panel rounded-xl transition-all text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
+        <nav class="flex-1 p-4 space-y-2">
+            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-blue-600/10 rounded-xl text-blue-400"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
+            <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="folder-git-2" class="w-5 h-5"></i> Projects</button>
+            <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
+            <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
         </nav>
-        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center uppercase tracking-widest">Version 1.6 Official</div>
+        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center">Version 1.7 | Official Beta</div>
     </aside>
 
     <header class="p-4 flex justify-between items-center z-30">
-        <button onclick="toggleMenu()" class="p-2 hover:bg-panel rounded-lg transition-colors"><i data-lucide="align-left" class="w-6 h-6 text-gray-300"></i></button>
-        <div id="status-bar" class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
-            <div id="status-dot" class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> <span id="status-text">Eios Online</span>
+        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg"><i data-lucide="align-left" class="w-6 h-6 text-gray-300"></i></button>
+        <div class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> Eios Online
         </div>
-        <button class="p-2 hover:bg-panel rounded-lg"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
+        <button class="p-2"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
     </header>
 
-    <div id="page-home" class="page active px-6 mt-10 w-full max-w-lg mx-auto">
+    <main id="page-home" class="page active px-6 mt-10 w-full max-w-lg mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-2xl font-bold mb-2">Hello, Agent.</h1>
-            <p class="text-gray-500 text-sm">What amazing things will we build today?</p>
+            <h1 class="text-3xl font-bold mb-2 tracking-tight">Hello, Agent.</h1>
+            <p class="text-gray-500 text-sm">Design, Build, and Deploy in seconds.</p>
         </div>
-        <div class="bg-panel rounded-2xl border border-panel p-4 shadow-2xl focus-within:border-blue-500 transition-all">
-            <textarea id="chat-input" placeholder="Describe your web idea..." class="w-full bg-transparent outline-none text-white text-base h-24 placeholder-gray-600 resize-none"></textarea>
-            <div class="flex justify-between items-center mt-2 pt-2 border-t border-panel">
-                <button class="text-gray-500 hover:text-white p-2"><i data-lucide="paperclip" class="w-5 h-5"></i></button>
-                <button id="btn-send" onclick="startAIBuild()" class="bg-white text-black p-2.5 rounded-xl active:scale-90 transition-all shadow-md">
-                    <i data-lucide="send-horizontal" id="icon-send" class="w-5 h-5"></i>
+        <div class="bg-panel rounded-3xl border border-panel p-5 shadow-2xl">
+            <textarea id="chat-input" placeholder="Build a landing page for my shop..." class="w-full bg-transparent outline-none text-white text-lg h-28 placeholder-gray-600 resize-none"></textarea>
+            <div class="flex justify-between items-center mt-4 pt-4 border-t border-panel">
+                <button class="text-gray-500"><i data-lucide="plus" class="w-6 h-6"></i></button>
+                <button onclick="startBuild()" class="bg-blue-600 text-white p-3 rounded-2xl active:scale-90 transition-all shadow-lg shadow-blue-900/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
-    </div>
+    </main>
 
     <div id="page-workspace" class="page">
-        <div class="flex border-b border-panel bg-panel">
-            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-4 border-b-2 border-blue-500 text-blue-400 text-xs font-bold">📄 index.html</button>
-            <button onclick="switchTab('preview')" id="tab-preview" class="flex-1 py-4 text-gray-500 text-xs font-bold">🌐 Preview</button>
+        <div class="flex border-b border-panel bg-panel p-2 gap-2">
+            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-editor rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
+            <button onclick="switchTab('preview')" id="tab-preview" class="flex-1 py-2 text-gray-500 text-xs font-bold">Preview</button>
         </div>
-        <div id="area-code" class="flex-1 p-4 bg-[#1e1e1e] overflow-auto relative">
-            <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-xs text-green-400 resize-none" spellcheck="false" readonly></textarea>
+        <div id="area-code" class="flex-1 p-4 bg-[#1e1e1e] overflow-auto">
+            <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-[12px] text-green-400 resize-none" readonly></textarea>
         </div>
         <iframe id="area-preview" class="hidden flex-1 bg-white border-none"></iframe>
-    </div>
-
-    <div id="page-integrations" class="page px-6 mt-6">
-        <h2 class="text-xl font-bold mb-2">Integrations</h2>
-        <div class="bg-panel p-5 rounded-2xl border border-panel">
-            <label class="text-[10px] uppercase text-gray-500 font-bold block mb-2">API Key</label>
-            <input type="password" placeholder="sk-xxxxxxxx" class="w-full bg-[#1c1c1c] border border-panel rounded-lg p-3 text-sm outline-none">
-            <button class="w-full mt-4 bg-blue-600 p-3 rounded-lg font-bold text-sm">Connect AI</button>
-        </div>
     </div>
 
     <script>
@@ -94,34 +114,22 @@
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
             document.getElementById('overlay').classList.toggle('hidden');
         }
-        function showPage(p) {
-            toggleMenu();
-            document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-            document.getElementById('page-' + p).classList.add('active');
-        }
-        function startAIBuild() {
+        function showPage(p) { toggleMenu(); document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-' + p).classList.add('active'); }
+        function startBuild() {
             const input = document.getElementById('chat-input');
-            const statusText = document.getElementById('status-text');
             if(!input.value) return;
-            statusText.innerText = "Eios AI is thinking";
-            statusText.classList.add('dots');
-            setTimeout(() => {
-                document.getElementById('real-code').value = `<!DOCTYPE html>\n<html>\n<body style="background:#1c1c1c; color:#4F8CFF; display:flex; align-items:center; justify-content:center; height:100vh; font-family:sans-serif;">\n  <h1>Project: ${input.value}</h1>\n</body>\n</html>`;
-                statusText.innerText = "Eios Online";
-                statusText.classList.remove('dots');
-                document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-                document.getElementById('page-workspace').classList.add('active');
-                switchTab('preview');
-                input.value = "";
-            }, 2000);
+            document.getElementById('real-code').value = `\n<div style="background:#111; color:cyan; padding:50px; text-align:center; font-family:sans-serif; border:2px solid cyan;">\n  <h1>Ready to Build!</h1>\n  <p>Prompt: ${input.value}</p>\n</div>`;
+            document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+            document.getElementById('page-workspace').classList.add('active');
+            switchTab('preview');
         }
         function switchTab(t) {
             const isCode = t === 'code';
             document.getElementById('area-code').classList.toggle('hidden', !isCode);
             document.getElementById('area-preview').classList.toggle('hidden', isCode);
             if(!isCode) document.getElementById('area-preview').srcdoc = document.getElementById('real-code').value;
-            document.getElementById('tab-code').className = isCode ? 'flex-1 py-4 border-b-2 border-blue-500 text-blue-400 text-xs font-bold' : 'flex-1 py-4 text-gray-500 text-xs font-bold';
-            document.getElementById('tab-preview').className = !isCode ? 'flex-1 py-4 border-b-2 border-blue-500 text-blue-400 text-xs font-bold' : 'flex-1 py-4 text-gray-500 text-xs font-bold';
+            document.getElementById('tab-code').className = isCode ? 'flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
+            document.getElementById('tab-preview').className = !isCode ? 'flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
         }
     </script>
 </body>
