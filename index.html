@@ -7,97 +7,93 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { background-color: #1c1c1c; color: #ececec; font-family: -apple-system, sans-serif; }
-        .bg-panel { background-color: #242424; }
-        .border-panel { border-color: #383838; }
+        body { background-color: #121212; color: #ececec; font-family: -apple-system, sans-serif; }
+        .bg-panel { background-color: #1c1c1c; }
+        .border-panel { border-color: #2d2d2d; }
         ::-webkit-scrollbar { display: none; }
         #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .page { display: none; flex-direction: column; flex: 1; width: 100%; animation: fadeIn 0.3s ease-in-out; }
         .page.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         @keyframes logoPulse {
-            0% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.6)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 15px rgba(79,140,255,0.9)); transform: scale(1.05); }
-            100% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.6)); transform: scale(1); }
+            0% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.4)); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 12px rgba(79,140,255,0.7)); transform: scale(1.02); }
+            100% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.4)); transform: scale(1); }
         }
-        .animate-eios { animation: logoPulse 3s infinite ease-in-out; }
-
-        @keyframes rotateAI {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .ai-core { transform-origin: center; animation: rotateAI 10s linear infinite; }
+        .animate-eios { animation: logoPulse 4s infinite ease-in-out; }
     </style>
 </head>
 <body class="overflow-hidden flex flex-col h-screen relative">
 
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden" onclick="toggleMenu()"></div>
+    <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden" onclick="toggleMenu()"></div>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-[80%] max-w-[300px] bg-[#1c1c1c] border-r border-panel -translate-x-full z-50 flex flex-col overflow-hidden">
-        <div class="p-5 flex items-center border-b border-panel gap-3 bg-panel/30">
-            <div class="h-10 w-10 flex-shrink-0 animate-eios">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-[80%] max-w-[280px] bg-[#121212] border-r border-panel -translate-x-full z-50 flex flex-col overflow-hidden">
+        <div class="p-5 flex items-center border-b border-panel gap-3">
+            <div class="h-9 w-9 flex-shrink-0 animate-eios">
                 <svg viewBox="0 0 100 100" class="w-full h-full">
-                    <defs>
-                        <linearGradient id="gradE" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#4F8CFF;" />
-                            <stop offset="100%" style="stop-color:#9D4FFF;" />
-                        </linearGradient>
-                    </defs>
-                    <rect x="15" y="25" width="60" height="10" rx="4" fill="url(#gradE)" />
-                    <rect x="15" y="45" width="45" height="10" rx="4" fill="url(#gradE)" />
-                    <rect x="15" y="65" width="60" height="10" rx="4" fill="url(#gradE)" />
-                    <g class="ai-core">
-                        <circle cx="75" cy="48" r="12" fill="none" stroke="#4F8CFF" stroke-width="1" stroke-dasharray="4 2" />
-                        <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse" />
-                    </g>
+                    <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4F8CFF;" /><stop offset="100%" style="stop-color:#9D4FFF;" /></linearGradient></defs>
+                    <rect x="15" y="25" width="60" height="10" rx="4" fill="url(#g)" /><rect x="15" y="45" width="45" height="10" rx="4" fill="url(#g)" /><rect x="15" y="65" width="60" height="10" rx="4" fill="url(#g)" />
+                    <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse" />
                 </svg>
             </div>
             <div class="flex flex-col">
-                <span class="font-bold text-lg text-white leading-tight italic">Eios IDE</span>
-                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase">AI Engine Active</span>
+                <span class="font-bold text-lg text-white italic">Eios IDE</span>
+                <span class="text-[10px] text-blue-500 font-bold tracking-widest uppercase">AI Active</span>
             </div>
         </div>
-        <nav class="flex-1 p-4 space-y-2">
-            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-blue-600/10 rounded-xl text-blue-400 font-medium"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
-            <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="folder-git-2" class="w-5 h-5"></i> Projects</button>
-            <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
-            <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
+        <nav class="flex-1 p-4 space-y-1">
+            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-white/5 rounded-xl text-white font-medium"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
+            <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400 hover:text-white"><i data-lucide="folder" class="w-5 h-5"></i> Projects</button>
+            <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400 hover:text-white"><i data-lucide="settings" class="w-5 h-5"></i> Settings</button>
         </nav>
-        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center uppercase tracking-widest">Version 1.9 Final Home</div>
     </aside>
 
     <header class="p-4 flex justify-between items-center z-30">
-        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg transition-colors"><i data-lucide="menu" class="w-6 h-6 text-gray-300"></i></button>
-        <div class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios AI Active
+        <button onclick="toggleMenu()" class="p-2 text-gray-400"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        <div class="text-[11px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2 text-gray-400 font-medium">
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Eios AI Active
         </div>
-        <button class="p-2"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
+        <button class="p-2 text-gray-400"><i data-lucide="bell" class="w-5 h-5"></i></button>
     </header>
 
     <main id="page-home" class="page active px-6 mt-16 w-full max-w-lg mx-auto">
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-black mb-1 tracking-tighter text-white italic uppercase">Eios IDE</h1>
-            <p class="text-blue-500 text-xs font-black tracking-[0.3em] uppercase">AI Engine Active</p>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-1 tracking-tight text-white italic">Eios IDE</h1>
+            <p class="text-blue-500 text-[10px] font-black tracking-[0.4em] uppercase">AI Engine Active</p>
         </div>
         
-        <div class="bg-panel rounded-[2.5rem] border border-panel p-6 shadow-2xl focus-within:border-blue-600/50 transition-all duration-500">
-            <textarea id="chat-input" placeholder="What will we build today?" class="w-full bg-transparent outline-none text-white text-lg h-32 placeholder-gray-600 resize-none"></textarea>
-            <div class="flex justify-between items-center mt-4 pt-4 border-t border-panel">
-                <button class="text-gray-500 hover:text-white transition-colors"><i data-lucide="plus" class="w-6 h-6"></i></button>
-                <button onclick="startBuild()" class="bg-blue-600 text-white p-4 rounded-2xl active:scale-90 transition-all shadow-xl shadow-blue-500/40">
-                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+        <div class="bg-panel rounded-2xl border border-panel p-4 shadow-xl flex flex-col gap-4 relative">
+            <textarea id="chat-input" placeholder="Describe your idea, Eios will bring it to life..." class="w-full bg-transparent outline-none text-[#9CA3AF] text-[15px] h-32 placeholder-gray-600 resize-none leading-relaxed"></textarea>
+            
+            <div class="flex justify-between items-center">
+                <button class="text-gray-500 hover:text-gray-300 transition-colors">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
                 </button>
+
+                <div class="flex items-center gap-4">
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <div class="w-4 h-4 rounded border border-gray-600 flex items-center justify-center bg-transparent group-hover:border-gray-400 transition-colors">
+                            <div class="w-2 h-2 bg-white rounded-sm hidden" id="plan-check"></div>
+                        </div>
+                        <input type="checkbox" class="hidden" onchange="document.getElementById('plan-check').classList.toggle('hidden')">
+                        <span class="text-gray-500 text-[14px] font-medium">Plan</span>
+                    </label>
+
+                    <button onclick="startBuild()" class="bg-[#2d2d2d] text-white p-2.5 rounded-xl active:scale-95 transition-all hover:bg-[#3d3d3d]">
+                        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
     <div id="page-workspace" class="page h-full">
         <div class="flex border-b border-panel bg-panel p-2 gap-2">
-            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
+            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
             <button onclick="switchTab('preview')" id="tab-preview" class="flex-1 py-2 text-gray-500 text-xs font-bold">Preview</button>
         </div>
-        <div id="area-code" class="flex-1 p-4 bg-[#1e1e1e] overflow-auto">
+        <div id="area-code" class="flex-1 p-4 bg-[#0a0a0a] overflow-auto">
             <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-[11px] text-green-400 resize-none" readonly></textarea>
         </div>
         <iframe id="area-preview" class="hidden flex-1 bg-white border-none"></iframe>
@@ -109,7 +105,7 @@
         function showPage(p) { toggleMenu(); document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-' + p).classList.add('active'); }
         function startBuild() {
             const val = document.getElementById('chat-input').value; if(!val) return;
-            document.getElementById('real-code').value = `\n<div style="background:#111; color:#4F8CFF; padding:40px; text-align:center; font-family:sans-serif; border:1px solid #333; border-radius:20px; margin:20px;">\n  <h1 style="font-size:30px">Build Successfully!</h1>\n  <p style="color:#888">${val}</p>\n</div>`;
+            document.getElementById('real-code').value = `\n<div style="background:#111; color:#4F8CFF; padding:40px; text-align:center; font-family:sans-serif; border:1px solid #333; border-radius:20px; margin:20px;">\n  <h1>Build Success</h1>\n  <p>${val}</p>\n</div>`;
             document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-workspace').classList.add('active'); switchTab('preview');
         }
         function switchTab(t) {
@@ -117,8 +113,8 @@
             document.getElementById('area-code').classList.toggle('hidden', !isCode);
             document.getElementById('area-preview').classList.toggle('hidden', isCode);
             if(!isCode) document.getElementById('area-preview').srcdoc = document.getElementById('real-code').value;
-            document.getElementById('tab-code').className = isCode ? 'flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
-            document.getElementById('tab-preview').className = !isCode ? 'flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
+            document.getElementById('tab-code').className = isCode ? 'flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
+            document.getElementById('tab-preview').className = !isCode ? 'flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
         }
     </script>
 </body>
