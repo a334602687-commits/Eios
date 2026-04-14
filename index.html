@@ -55,7 +55,7 @@
             </div>
             <div class="flex flex-col">
                 <span class="font-bold text-lg text-white leading-tight italic">Eios IDE</span>
-                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase text-xs">AI Engine Active</span>
+                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase">AI Engine Active</span>
             </div>
         </div>
         <nav class="flex-1 p-4 space-y-2">
@@ -64,28 +64,28 @@
             <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
             <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
         </nav>
-        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center uppercase tracking-widest">Eios Official v1.8</div>
+        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center uppercase tracking-widest">Version 1.9 Final Home</div>
     </aside>
 
     <header class="p-4 flex justify-between items-center z-30">
-        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg"><i data-lucide="menu" class="w-6 h-6 text-gray-300"></i></button>
+        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg transition-colors"><i data-lucide="menu" class="w-6 h-6 text-gray-300"></i></button>
         <div class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios Online
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios AI Active
         </div>
         <button class="p-2"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
     </header>
 
     <main id="page-home" class="page active px-6 mt-16 w-full max-w-lg mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold mb-1 tracking-tighter text-white italic">Eios IDE</h1>
-            <p class="text-blue-400 text-xs font-bold tracking-[0.2em] uppercase">AI Engine Active</p>
+            <h1 class="text-4xl font-black mb-1 tracking-tighter text-white italic uppercase">Eios IDE</h1>
+            <p class="text-blue-500 text-xs font-black tracking-[0.3em] uppercase">AI Engine Active</p>
         </div>
         
-        <div class="bg-panel rounded-[2.5rem] border border-panel p-6 shadow-2xl focus-within:border-blue-500/50 transition-all duration-500 bg-opacity-80 backdrop-blur-sm">
+        <div class="bg-panel rounded-[2.5rem] border border-panel p-6 shadow-2xl focus-within:border-blue-600/50 transition-all duration-500">
             <textarea id="chat-input" placeholder="What will we build today?" class="w-full bg-transparent outline-none text-white text-lg h-32 placeholder-gray-600 resize-none"></textarea>
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-panel">
                 <button class="text-gray-500 hover:text-white transition-colors"><i data-lucide="plus" class="w-6 h-6"></i></button>
-                <button onclick="startBuild()" class="bg-blue-600 text-white p-4 rounded-2xl active:scale-90 transition-all shadow-xl shadow-blue-500/30">
+                <button onclick="startBuild()" class="bg-blue-600 text-white p-4 rounded-2xl active:scale-90 transition-all shadow-xl shadow-blue-500/40">
                     <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </button>
             </div>
