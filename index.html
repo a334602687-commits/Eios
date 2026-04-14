@@ -16,7 +16,6 @@
         .page.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* HIỆU ỨNG LOGO THỞ (PULSE) */
         @keyframes logoPulse {
             0% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.6)); transform: scale(1); }
             50% { filter: drop-shadow(0 0 15px rgba(79,140,255,0.9)); transform: scale(1.05); }
@@ -24,7 +23,6 @@
         }
         .animate-eios { animation: logoPulse 3s infinite ease-in-out; }
 
-        /* HIỆU ỨNG CHẤM AI XOAY */
         @keyframes rotateAI {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -51,43 +49,43 @@
                     <rect x="15" y="65" width="60" height="10" rx="4" fill="url(#gradE)" />
                     <g class="ai-core">
                         <circle cx="75" cy="48" r="12" fill="none" stroke="#4F8CFF" stroke-width="1" stroke-dasharray="4 2" />
-                        <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse shadow-blue-500" />
+                        <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse" />
                     </g>
                 </svg>
             </div>
             <div class="flex flex-col">
                 <span class="font-bold text-lg text-white leading-tight italic">Eios IDE</span>
-                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase">AI Engine Active</span>
+                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase text-xs">AI Engine Active</span>
             </div>
         </div>
-
         <nav class="flex-1 p-4 space-y-2">
             <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-blue-600/10 rounded-xl text-blue-400 font-medium"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
             <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="folder-git-2" class="w-5 h-5"></i> Projects</button>
             <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
             <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
         </nav>
-        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center">VERSION 1.7 | DYNAMIC LOGO</div>
+        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center uppercase tracking-widest">Eios Official v1.8</div>
     </aside>
 
     <header class="p-4 flex justify-between items-center z-30">
         <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg"><i data-lucide="menu" class="w-6 h-6 text-gray-300"></i></button>
         <div class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios AI Active
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios Online
         </div>
         <button class="p-2"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
     </header>
 
-    <main id="page-home" class="page active px-6 mt-10 w-full max-w-lg mx-auto">
+    <main id="page-home" class="page active px-6 mt-16 w-full max-w-lg mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-3xl font-bold mb-2 tracking-tighter text-white">Hello, Agent.</h1>
-            <p class="text-gray-500 text-sm font-medium">Think it. Prompt it. Build it.</p>
+            <h1 class="text-4xl font-extrabold mb-1 tracking-tighter text-white italic">Eios IDE</h1>
+            <p class="text-blue-400 text-xs font-bold tracking-[0.2em] uppercase">AI Engine Active</p>
         </div>
-        <div class="bg-panel rounded-3xl border border-panel p-5 shadow-2xl focus-within:border-blue-500 transition-all duration-500">
-            <textarea id="chat-input" placeholder="Build a professional landing page..." class="w-full bg-transparent outline-none text-white text-lg h-28 placeholder-gray-600 resize-none"></textarea>
+        
+        <div class="bg-panel rounded-[2.5rem] border border-panel p-6 shadow-2xl focus-within:border-blue-500/50 transition-all duration-500 bg-opacity-80 backdrop-blur-sm">
+            <textarea id="chat-input" placeholder="What will we build today?" class="w-full bg-transparent outline-none text-white text-lg h-32 placeholder-gray-600 resize-none"></textarea>
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-panel">
-                <button class="text-gray-500 hover:text-white transition-colors"><i data-lucide="plus-circle" class="w-6 h-6"></i></button>
-                <button onclick="startBuild()" class="bg-blue-600 text-white p-3 rounded-2xl active:scale-90 transition-all shadow-lg shadow-blue-500/20">
+                <button class="text-gray-500 hover:text-white transition-colors"><i data-lucide="plus" class="w-6 h-6"></i></button>
+                <button onclick="startBuild()" class="bg-blue-600 text-white p-4 rounded-2xl active:scale-90 transition-all shadow-xl shadow-blue-500/30">
                     <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </button>
             </div>
