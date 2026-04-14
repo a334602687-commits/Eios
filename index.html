@@ -30,9 +30,6 @@
             to { transform: rotate(360deg); }
         }
         .ai-core { transform-origin: center; animation: rotateAI 10s linear infinite; }
-        
-        .dots:after { content: '.'; animation: dots 1.5s steps(5, end) infinite; }
-        @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } 80%, 100% { content: ''; } }
     </style>
 </head>
 <body class="overflow-hidden flex flex-col h-screen relative">
@@ -49,79 +46,73 @@
                             <stop offset="100%" style="stop-color:#9D4FFF;" />
                         </linearGradient>
                     </defs>
-                    <rect x="20" y="25" width="55" height="10" rx="4" fill="url(#gradE)" />
-                    <rect x="20" y="45" width="55" height="10" rx="4" fill="url(#gradE)" />
-                    <rect x="20" y="65" width="55" height="10" rx="4" fill="url(#gradE)" />
+                    <rect x="15" y="25" width="60" height="10" rx="4" fill="url(#gradE)" />
+                    <rect x="15" y="45" width="45" height="10" rx="4" fill="url(#gradE)" />
+                    <rect x="15" y="65" width="60" height="10" rx="4" fill="url(#gradE)" />
                     <g class="ai-core">
-                        <circle cx="75" cy="50" r="10" fill="white" fill-opacity="0.1" stroke="white" stroke-width="1" stroke-dasharray="4 2" />
-                        <circle cx="75" cy="50" r="5" fill="white" class="animate-pulse" />
+                        <circle cx="75" cy="48" r="12" fill="none" stroke="#4F8CFF" stroke-width="1" stroke-dasharray="4 2" />
+                        <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse shadow-blue-500" />
                     </g>
                 </svg>
             </div>
             <div class="flex flex-col">
-                <span class="font-bold text-lg text-white leading-tight">Eios IDE</span>
-                <span class="text-[10px] text-blue-400 mt-0.5 uppercase tracking-widest font-bold">AI Engine Active</span>
+                <span class="font-bold text-lg text-white leading-tight italic">Eios IDE</span>
+                <span class="text-[10px] text-blue-400 mt-0.5 font-bold tracking-widest uppercase">AI Engine Active</span>
             </div>
         </div>
 
         <nav class="flex-1 p-4 space-y-2">
-            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-blue-600/10 rounded-xl text-blue-400"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
+            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-blue-600/10 rounded-xl text-blue-400 font-medium"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
             <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="folder-git-2" class="w-5 h-5"></i> Projects</button>
             <button onclick="showPage('integrations')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="blocks" class="w-5 h-5"></i> Integrations</button>
             <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400"><i data-lucide="settings-2" class="w-5 h-5"></i> Settings</button>
         </nav>
-        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center">Version 1.7 | Official Beta</div>
+        <div class="p-6 border-t border-panel text-[10px] text-gray-500 text-center">VERSION 1.7 | DYNAMIC LOGO</div>
     </aside>
 
     <header class="p-4 flex justify-between items-center z-30">
-        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg"><i data-lucide="align-left" class="w-6 h-6 text-gray-300"></i></button>
+        <button onclick="toggleMenu()" class="p-2 bg-panel rounded-lg"><i data-lucide="menu" class="w-6 h-6 text-gray-300"></i></button>
         <div class="text-[10px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div> Eios Online
+            <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_5px_#22c55e]"></div> Eios AI Active
         </div>
         <button class="p-2"><i data-lucide="bell" class="w-5 h-5 text-gray-400"></i></button>
     </header>
 
     <main id="page-home" class="page active px-6 mt-10 w-full max-w-lg mx-auto">
         <div class="text-center mb-10">
-            <h1 class="text-3xl font-bold mb-2 tracking-tight">Hello, Agent.</h1>
-            <p class="text-gray-500 text-sm">Design, Build, and Deploy in seconds.</p>
+            <h1 class="text-3xl font-bold mb-2 tracking-tighter text-white">Hello, Agent.</h1>
+            <p class="text-gray-500 text-sm font-medium">Think it. Prompt it. Build it.</p>
         </div>
-        <div class="bg-panel rounded-3xl border border-panel p-5 shadow-2xl">
-            <textarea id="chat-input" placeholder="Build a landing page for my shop..." class="w-full bg-transparent outline-none text-white text-lg h-28 placeholder-gray-600 resize-none"></textarea>
+        <div class="bg-panel rounded-3xl border border-panel p-5 shadow-2xl focus-within:border-blue-500 transition-all duration-500">
+            <textarea id="chat-input" placeholder="Build a professional landing page..." class="w-full bg-transparent outline-none text-white text-lg h-28 placeholder-gray-600 resize-none"></textarea>
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-panel">
-                <button class="text-gray-500"><i data-lucide="plus" class="w-6 h-6"></i></button>
-                <button onclick="startBuild()" class="bg-blue-600 text-white p-3 rounded-2xl active:scale-90 transition-all shadow-lg shadow-blue-900/20">
+                <button class="text-gray-500 hover:text-white transition-colors"><i data-lucide="plus-circle" class="w-6 h-6"></i></button>
+                <button onclick="startBuild()" class="bg-blue-600 text-white p-3 rounded-2xl active:scale-90 transition-all shadow-lg shadow-blue-500/20">
                     <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
     </main>
 
-    <div id="page-workspace" class="page">
+    <div id="page-workspace" class="page h-full">
         <div class="flex border-b border-panel bg-panel p-2 gap-2">
-            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-editor rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
+            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-[#1c1c1c] rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
             <button onclick="switchTab('preview')" id="tab-preview" class="flex-1 py-2 text-gray-500 text-xs font-bold">Preview</button>
         </div>
         <div id="area-code" class="flex-1 p-4 bg-[#1e1e1e] overflow-auto">
-            <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-[12px] text-green-400 resize-none" readonly></textarea>
+            <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-[11px] text-green-400 resize-none" readonly></textarea>
         </div>
         <iframe id="area-preview" class="hidden flex-1 bg-white border-none"></iframe>
     </div>
 
     <script>
         lucide.createIcons();
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('-translate-x-full');
-            document.getElementById('overlay').classList.toggle('hidden');
-        }
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('-translate-x-full'); document.getElementById('overlay').classList.toggle('hidden'); }
         function showPage(p) { toggleMenu(); document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-' + p).classList.add('active'); }
         function startBuild() {
-            const input = document.getElementById('chat-input');
-            if(!input.value) return;
-            document.getElementById('real-code').value = `\n<div style="background:#111; color:cyan; padding:50px; text-align:center; font-family:sans-serif; border:2px solid cyan;">\n  <h1>Ready to Build!</h1>\n  <p>Prompt: ${input.value}</p>\n</div>`;
-            document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-            document.getElementById('page-workspace').classList.add('active');
-            switchTab('preview');
+            const val = document.getElementById('chat-input').value; if(!val) return;
+            document.getElementById('real-code').value = `\n<div style="background:#111; color:#4F8CFF; padding:40px; text-align:center; font-family:sans-serif; border:1px solid #333; border-radius:20px; margin:20px;">\n  <h1 style="font-size:30px">Build Successfully!</h1>\n  <p style="color:#888">${val}</p>\n</div>`;
+            document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-workspace').classList.add('active'); switchTab('preview');
         }
         function switchTab(t) {
             const isCode = t === 'code';
