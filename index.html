@@ -3,118 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eios IDE - Official</title>
+    <title>Eios IDE - Full Stack Shell</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { background-color: #121212; color: #ececec; font-family: -apple-system, sans-serif; }
-        .bg-panel { background-color: #1c1c1c; }
-        .border-panel { border-color: #2d2d2d; }
-        ::-webkit-scrollbar { display: none; }
-        #sidebar { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .page { display: none; flex-direction: column; flex: 1; width: 100%; animation: fadeIn 0.3s ease-in-out; }
+        body { background-color: #ffffff; color: #1a1a1a; font-family: -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+        #sidebar { transition: transform 0.25s ease-in-out; }
+        .page { display: none; flex-direction: column; flex: 1; width: 100%; animation: fadeIn 0.2s ease-out; }
         .page.active { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        /* SIDEBAR - ZOOM NHỎ, ĐẦY ĐỦ 100% MỤC */
+        .nav-item { display: flex; align-items: center; gap: 7px; width: 100%; padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; color: #4b5563; text-align: left; }
+        .nav-item i { width: 14px; height: 14px; flex-shrink: 0; }
+        .nav-item.active { background-color: #eff6ff; color: #2563eb; font-weight: 600; }
+        .group-title { padding: 0 10px; margin-top: 10px; margin-bottom: 2px; font-size: 9px; font-weight: 800; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; }
 
-        @keyframes logoPulse {
-            0% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.4)); transform: scale(1); }
-            50% { filter: drop-shadow(0 0 12px rgba(79,140,255,0.7)); transform: scale(1.02); }
-            100% { filter: drop-shadow(0 0 5px rgba(79,140,255,0.4)); transform: scale(1); }
-        }
-        .animate-eios { animation: logoPulse 4s infinite ease-in-out; }
+        /* KHUNG CHAT DẸT */
+        .chat-container { max-width: 450px; width: 100%; margin: 0 auto; }
+        .chat-box { border: 1px solid #e5e7eb; border-radius: 14px; padding: 2px 4px; display: flex; align-items: center; background: #fff; min-height: 36px; }
+        #chat-input { flex: 1; background: transparent; border: none; outline: none; font-size: 12px; padding: 0 6px; color: #1f2937; }
+
+        /* NÚT GỢI Ý */
+        .quick-btn { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid #f3f4f6; border-radius: 12px; font-size: 10px; font-weight: 500; color: #4b5563; background: #fff; width: 100%; }
     </style>
 </head>
-<body class="overflow-hidden flex flex-col h-screen relative">
+<body class="overflow-hidden flex flex-col h-screen bg-white">
 
-    <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden" onclick="toggleMenu()"></div>
+    <div id="overlay" class="fixed inset-0 bg-black/5 z-40 hidden" onclick="toggleMenu()"></div>
 
-    <aside id="sidebar" class="fixed inset-y-0 left-0 w-[80%] max-w-[280px] bg-[#121212] border-r border-panel -translate-x-full z-50 flex flex-col overflow-hidden">
-        <div class="p-5 flex items-center border-b border-panel gap-3">
-            <div class="h-9 w-9 flex-shrink-0 animate-eios">
-                <svg viewBox="0 0 100 100" class="w-full h-full">
-                    <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4F8CFF;" /><stop offset="100%" style="stop-color:#9D4FFF;" /></linearGradient></defs>
-                    <rect x="15" y="25" width="60" height="10" rx="4" fill="url(#g)" /><rect x="15" y="45" width="45" height="10" rx="4" fill="url(#g)" /><rect x="15" y="65" width="60" height="10" rx="4" fill="url(#g)" />
-                    <circle cx="75" cy="48" r="6" fill="white" class="animate-pulse" />
-                </svg>
-            </div>
-            <div class="flex flex-col">
-                <span class="font-bold text-lg text-white italic">Eios IDE</span>
-                <span class="text-[10px] text-blue-500 font-bold tracking-widest uppercase">AI Active</span>
-            </div>
+    <aside id="sidebar" class="fixed inset-y-0 left-0 w-[75%] max-w-[240px] bg-white border-r border-gray-100 -translate-x-full z-50 flex flex-col shadow-xl uppercase">
+        <div class="p-3 border-b border-gray-50 flex items-center gap-2">
+            <div class="h-5 w-5"><svg viewBox="0 0 100 100"><rect x="15" y="25" width="60" height="9" rx="3" fill="#1a1a1a"/><rect x="15" y="45" width="45" height="9" rx="3" fill="#1a1a1a"/><rect x="15" y="65" width="60" height="9" rx="3" fill="#1a1a1a"/><circle cx="75" cy="48" r="8" fill="#4F8CFF"/></svg></div>
+            <span class="font-bold text-[12px] tracking-tight italic">EIOS MENU</span>
         </div>
-        <nav class="flex-1 p-4 space-y-1">
-            <button onclick="showPage('home')" class="w-full flex items-center gap-4 p-3 bg-white/5 rounded-xl text-white font-medium"><i data-lucide="home" class="w-5 h-5"></i> Home</button>
-            <button onclick="showPage('projects')" class="w-full flex items-center gap-4 p-3 text-gray-400 hover:text-white"><i data-lucide="folder" class="w-5 h-5"></i> Projects</button>
-            <button onclick="showPage('settings')" class="w-full flex items-center gap-4 p-3 text-gray-400 hover:text-white"><i data-lucide="settings" class="w-5 h-5"></i> Settings</button>
+
+        <nav class="flex-1 overflow-y-auto p-2">
+            <button class="w-full flex items-center justify-center gap-2 p-2 bg-gray-900 text-white rounded-lg text-[9px] font-bold mb-3"><i data-lucide="plus" class="w-3.5 h-3.5 text-blue-400"></i> TẠO ỨNG DỤNG MỚI</button>
+            
+            <div class="group-title">Cơ bản</div>
+            <button onclick="navigate('home', this)" class="nav-item active"><i data-lucide="home"></i> Home</button>
+            <button onclick="navigate('projects', this)" class="nav-item"><i data-lucide="folder-kanban"></i> Dự án</button>
+            <button class="nav-item"><i data-lucide="send"></i> Đã xuất bản</button>
+            <button onclick="navigate('integrations', this)" class="nav-item"><i data-lucide="blocks"></i> Tích hợp AI</button>
+            <button onclick="navigate('settings', this)" class="nav-item"><i data-lucide="settings"></i> Cài đặt</button>
+
+            <div class="group-title">Phát triển</div>
+            <button onclick="navigate('tools', this)" class="nav-item"><i data-lucide="wrench"></i> Công cụ</button>
+            <button onclick="navigate('extensions', this)" class="nav-item"><i data-lucide="puzzle"></i> Trang EXT</button>
+
+            <div class="group-title">Học tập</div>
+            <button class="nav-item"><i data-lucide="book-open"></i> Tài liệu</button>
+            <button class="nav-item"><i data-lucide="gift"></i> Giới thiệu</button>
+
+            <div class="group-title">Hệ thống</div>
+            <button class="nav-item"><i data-lucide="download-cloud"></i> Cài đặt App</button>
+            <button class="nav-item"><i data-lucide="history"></i> Nhật ký</button>
         </nav>
+
+        <div class="p-2 border-t border-gray-50 bg-gray-50/50">
+            <button onclick="navigate('profile', this)" class="nav-item w-full">
+                <i data-lucide="user-circle"></i> Hồ sơ người dùng
+            </button>
+        </div>
     </aside>
 
-    <header class="p-4 flex justify-between items-center z-30">
-        <button onclick="toggleMenu()" class="p-2 text-gray-400"><i data-lucide="menu" class="w-6 h-6"></i></button>
-        <div class="text-[11px] bg-panel px-3 py-1 rounded-full border border-panel flex items-center gap-2 text-gray-400 font-medium">
-            <div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Eios AI Active
+    <header class="h-10 flex items-center justify-between px-3 border-b border-gray-50 bg-white">
+        <div class="flex items-center gap-2">
+            <button onclick="toggleMenu()" class="p-1 text-gray-400"><i data-lucide="panel-left" class="w-4 h-4"></i></button>
+            <div class="flex items-center gap-1.5 ml-1">
+                <div class="h-4 w-4"><svg viewBox="0 0 100 100"><rect x="15" y="25" width="60" height="9" rx="3" fill="#1a1a1a"/><rect x="15" y="45" width="45" height="9" rx="3" fill="#1a1a1a"/><rect x="15" y="65" width="60" height="9" rx="3" fill="#1a1a1a"/><circle cx="75" cy="48" r="8" fill="#4F8CFF"/></svg></div>
+                <span class="font-bold text-[10px] tracking-tight uppercase italic">Eios IDE</span>
+            </div>
         </div>
-        <button class="p-2 text-gray-400"><i data-lucide="bell" class="w-5 h-5"></i></button>
+        <div class="w-6 h-6 bg-gray-900 rounded-full flex items-center justify-center text-white text-[8px] font-black italic">EI</div>
     </header>
 
-    <main id="page-home" class="page active px-6 mt-16 w-full max-w-lg mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-1 tracking-tight text-white italic">Eios IDE</h1>
-            <p class="text-blue-500 text-[10px] font-black tracking-[0.4em] uppercase">AI Engine Active</p>
+    <main id="home" class="page active items-center justify-center px-4">
+        <div class="flex flex-col items-center mb-6 text-center">
+            <div class="h-8 w-8 mb-2"><svg viewBox="0 0 100 100" class="w-full h-full"><rect x="15" y="25" width="60" height="9" rx="3" fill="#1a1a1a" /><rect x="15" y="45" width="45" height="9" rx="3" fill="#1a1a1a" /><rect x="15" y="65" width="60" height="9" rx="3" fill="#1a1a1a" /><circle cx="75" cy="48" r="8" fill="#4F8CFF" /></svg></div>
+            <h1 class="text-lg font-black italic uppercase tracking-tighter">Eios IDE AI</h1>
+            <p class="text-[9px] text-blue-500 font-bold tracking-[0.3em] uppercase">AI Engine Active</p>
         </div>
-        
-        <div class="bg-panel rounded-2xl border border-panel p-4 shadow-xl flex flex-col gap-4 relative">
-            <textarea id="chat-input" placeholder="Describe your idea, Eios will bring it to life..." class="w-full bg-transparent outline-none text-[#9CA3AF] text-[15px] h-32 placeholder-gray-600 resize-none leading-relaxed"></textarea>
-            
-            <div class="flex justify-between items-center">
-                <button class="text-gray-500 hover:text-gray-300 transition-colors">
-                    <i data-lucide="plus" class="w-6 h-6"></i>
-                </button>
-
-                <div class="flex items-center gap-4">
-                    <label class="flex items-center gap-2 cursor-pointer group">
-                        <div class="w-4 h-4 rounded border border-gray-600 flex items-center justify-center bg-transparent group-hover:border-gray-400 transition-colors">
-                            <div class="w-2 h-2 bg-white rounded-sm hidden" id="plan-check"></div>
-                        </div>
-                        <input type="checkbox" class="hidden" onchange="document.getElementById('plan-check').classList.toggle('hidden')">
-                        <span class="text-gray-500 text-[14px] font-medium">Plan</span>
-                    </label>
-
-                    <button onclick="startBuild()" class="bg-[#2d2d2d] text-white p-2.5 rounded-xl active:scale-95 transition-all hover:bg-[#3d3d3d]">
-                        <i data-lucide="arrow-up" class="w-5 h-5"></i>
-                    </button>
+        <div class="chat-container">
+            <div class="chat-box shadow-sm mb-3">
+                <button class="p-1 text-gray-300"><i data-lucide="paperclip" class="w-4 h-4"></i></button>
+                <input id="chat-input" type="text" placeholder="Message Eios...">
+                <div class="flex items-center gap-2 pr-1">
+                    <span class="text-[8px] font-bold text-gray-400 uppercase">Pro <i data-lucide="chevron-down" class="w-2.5 h-2.5 inline"></i></span>
+                    <button class="w-7 h-7 bg-gray-50 text-gray-400 rounded-full flex items-center justify-center"><i data-lucide="arrow-up" class="w-3.5 h-3.5"></i></button>
                 </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 w-full">
+                <button class="quick-btn"><i data-lucide="layout" class="text-blue-500"></i> Startup Landing</button>
+                <button class="quick-btn"><i data-lucide="database" class="text-purple-500"></i> Dev Platform</button>
+                <button class="quick-btn"><i data-lucide="palette" class="text-orange-400"></i> Portfolio</button>
+                <button class="quick-btn"><i data-lucide="git-branch" class="text-green-500"></i> CI/CD Pipeline</button>
             </div>
         </div>
     </main>
 
-    <div id="page-workspace" class="page h-full">
-        <div class="flex border-b border-panel bg-panel p-2 gap-2">
-            <button onclick="switchTab('code')" id="tab-code" class="flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel">Code</button>
-            <button onclick="switchTab('preview')" id="tab-preview" class="flex-1 py-2 text-gray-500 text-xs font-bold">Preview</button>
-        </div>
-        <div id="area-code" class="flex-1 p-4 bg-[#0a0a0a] overflow-auto">
-            <textarea id="real-code" class="w-full h-full bg-transparent outline-none font-mono text-[11px] text-green-400 resize-none" readonly></textarea>
-        </div>
-        <iframe id="area-preview" class="hidden flex-1 bg-white border-none"></iframe>
-    </div>
+    <div id="projects" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Dự án</h2></div>
+    <div id="integrations" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Tích hợp AI</h2></div>
+    <div id="settings" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Cài đặt</h2></div>
+    <div id="tools" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Công cụ</h2></div>
+    <div id="extensions" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Trang EXT</h2></div>
+    <div id="profile" class="page p-4"><h2 class="text-[11px] font-bold uppercase text-gray-400">Hồ sơ người dùng</h2></div>
 
     <script>
         lucide.createIcons();
         function toggleMenu() { document.getElementById('sidebar').classList.toggle('-translate-x-full'); document.getElementById('overlay').classList.toggle('hidden'); }
-        function showPage(p) { toggleMenu(); document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-' + p).classList.add('active'); }
-        function startBuild() {
-            const val = document.getElementById('chat-input').value; if(!val) return;
-            document.getElementById('real-code').value = `\n<div style="background:#111; color:#4F8CFF; padding:40px; text-align:center; font-family:sans-serif; border:1px solid #333; border-radius:20px; margin:20px;">\n  <h1>Build Success</h1>\n  <p>${val}</p>\n</div>`;
-            document.querySelectorAll('.page').forEach(x => x.classList.remove('active')); document.getElementById('page-workspace').classList.add('active'); switchTab('preview');
-        }
-        function switchTab(t) {
-            const isCode = t === 'code';
-            document.getElementById('area-code').classList.toggle('hidden', !isCode);
-            document.getElementById('area-preview').classList.toggle('hidden', isCode);
-            if(!isCode) document.getElementById('area-preview').srcdoc = document.getElementById('real-code').value;
-            document.getElementById('tab-code').className = isCode ? 'flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
-            document.getElementById('tab-preview').className = !isCode ? 'flex-1 py-2 bg-[#121212] rounded-lg text-blue-400 text-xs font-bold border border-panel' : 'flex-1 py-2 text-gray-500 text-xs font-bold';
+        function navigate(pId, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pId);
+            if(target) target.classList.add('active');
+            if (el) {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                el.classList.add('active');
+            }
+            toggleMenu();
         }
     </script>
 </body>
